@@ -1,0 +1,5 @@
+assets/images/uploads/*
+vendor/
+config/database.php
+test_connection.php
+.DS_Store
