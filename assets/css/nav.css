@@ -1,0 +1,67 @@
+/* assets/css/nav.css */
+nav.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav.main-nav h1 {
+    margin: 0;
+    font-family: "Faculty Glyphic", sans-serif;
+    font-size: 2rem;
+    color: black;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #007bff;
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.user-menu:hover .dropdown-content {
+    display: block;
+}
+
+.user-menu .dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.user-menu .dropdown-content a:hover {
+    background-color: #f8f9fa;
+}
