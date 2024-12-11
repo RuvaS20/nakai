@@ -1,250 +1,229 @@
 <?php
-require_once '../config/database.php';
-require_once '../classes/Database.php';
-require_once '../classes/User.php';
-require_once '../classes/Artist.php';
-require_once '../classes/Gallery.php';
-require_once '../classes/Session.php';
-require_once '../includes/functions.php';
-
-Session::start();
+session_start();
 
 // Redirect if already logged in
-if (Session::isLoggedIn()) {
-    $role = Session::getRole();
-    redirect("/nakai/dashboard/$role/profile.php");
+if (isset($_SESSION['user_id'])) {
+    $role = $_SESSION['role'];
+    header("Location: /nakai/views/$role/dashboard.php");
+    exit();
 }
 
-$error = '';
-$success = '';
+require_once '../functions/validation.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        // Validate CSRF token
-        if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
-            throw new Exception("Invalid request");
-        }
+// Get error message if any
+$error = isset($_SESSION['register_error']) ? $_SESSION['register_error'] : '';
+unset($_SESSION['register_error']);
 
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = $_POST['password'];
-        $role = $_POST['role'];
-
-        if (!in_array($role, ['artist', 'gallery'])) {
-            throw new Exception("Invalid role selected");
-        }
-
-        if (empty($email) || empty($password)) {
-            throw new Exception("Required fields cannot be empty");
-        }
-
-        if (!validateEmail($email)) {
-            throw new Exception("Invalid email format");
-        }
-
-        if (!validatePassword($password)) {
-            throw new Exception("Password must be at least 8 characters long and contain uppercase, lowercase, and numbers");
-        }
-
-        $db = new Database();
-        $conn = $db->getConnection();
-        $user = new User($conn);
-
-        // Check if email already exists
-        $user->email = $email;
-        if ($user->emailExists()) {
-            throw new Exception("Email already registered");
-        }
-
-        // Begin transaction
-        $conn->beginTransaction();
-
-        // Create user account
-        $user->password = $password;
-        $user->role = $role;
-        $user_id = $user->create();
-
-        if (!$user_id) {
-            throw new Exception("Error creating user account");
-        }
-
-        // Create role-specific profile
-        if ($role === 'artist') {
-            $artist = new Artist($conn);
-            $artist->user_id = $user_id;
-            $artist->name = sanitizeInput($_POST['artist-name']);
-            $artist->bio = sanitizeInput($_POST['artist-bio']);
-            $artist->phone = sanitizeInput($_POST['artist-phone']);
-            
-            if (!$artist->create()) {
-                throw new Exception("Error creating artist profile");
-            }
-        } else {
-            $gallery = new Gallery($conn);
-            $gallery->user_id = $user_id;
-            $gallery->name = sanitizeInput($_POST['gallery-name']);
-            $gallery->description = sanitizeInput($_POST['gallery-description']);
-            $gallery->address = sanitizeInput($_POST['gallery-address']);
-            $gallery->phone = sanitizeInput($_POST['gallery-phone']);
-            $gallery->website = sanitizeInput($_POST['gallery-website']);
-            
-            if (!$gallery->create()) {
-                throw new Exception("Error creating gallery profile");
-            }
-        }
-
-        // Commit transaction
-        $conn->commit();
-        
-        // Redirect to login page
-        redirect("/nakai/auth/login.php?registered=1");
-
-    } catch (Exception $e) {
-        // Rollback transaction if active
-        if (isset($conn) && $conn->inTransaction()) {
-            $conn->rollBack();
-        }
-        $error = $e->getMessage();
-    }
-}
+// Get success message if any
+$success = isset($_SESSION['register_success']) ? $_SESSION['register_success'] : '';
+unset($_SESSION['register_success']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nakai Nakai Art Gallery - Register</title>
 
-    <!-- Google Fonts -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-    </style>
-    
-    <!-- Base styles first -->
-    <link rel="stylesheet" href="../assets/css/common.css?v=<?php echo time(); ?>">
-    
-    <!-- Third-party styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Page-specific styles last -->
-    <link rel="stylesheet" href="../assets/css/register.css?v=<?php echo time(); ?>">
-</head>
-<body>
-    <?php include '../includes/header.php'; ?>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nakai Nakai Art Gallery - Register</title>
 
-    <div class="main-content">
-        <div class="registration-container">
-            <?php if (!empty($error)): ?>
-                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
-            <?php endif; ?>
-            <?php if (!empty($success)): ?>
-                <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
-            <?php endif; ?>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap"
+            rel="stylesheet">
 
-            <div class="toggle-header">
-                <div class="toggle-option active" onclick="toggleForm('artist')">
-                    <h2>Artist Registration</h2>
-                    <p>Join our community as an artist</p>
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="../assets/css/common.css">
+        <link rel="stylesheet" href="../assets/css/nav.css">
+        <link rel="stylesheet" href="../assets/css/footer.css">
+        <link rel="stylesheet" href="../assets/css/register.css">
+
+        <script>
+        // Define the function in the global scope
+        window.toggleForm = function(type) {
+            const artistForm = document.querySelector('.artist-form');
+            const galleryForm = document.querySelector('.gallery-form');
+            const artistOption = document.querySelector('.toggle-option:first-child');
+            const galleryOption = document.querySelector('.toggle-option:last-child');
+
+            if (type === 'artist') {
+                artistForm.classList.add('active');
+                galleryForm.classList.remove('active');
+                artistOption.classList.add('active');
+                artistOption.classList.remove('inactive');
+                galleryOption.classList.remove('active');
+                galleryOption.classList.add('inactive');
+            } else {
+                galleryForm.classList.add('active');
+                artistForm.classList.remove('active');
+                galleryOption.classList.add('active');
+                galleryOption.classList.remove('inactive');
+                artistOption.classList.remove('active');
+                artistOption.classList.add('inactive');
+            }
+        }
+
+        // Add initialization code
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Check if all required elements exist
+            const elements = {
+                artistForm: document.querySelector('.artist-form'),
+                galleryForm: document.querySelector('.gallery-form'),
+                artistToggle: document.querySelector('.toggle-option:first-child'),
+                galleryToggle: document.querySelector('.toggle-option:last-child')
+            };
+
+            // Only call toggleForm if both forms exist
+            if (elements.artistForm && elements.galleryForm) {
+                toggleForm('artist');
+            } else {
+                console.error('Missing required form elements:', elements);
+            }
+        });
+        </script>
+    </head>
+
+    <body>
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <h1><a href="/nakai/index.php" style="text-decoration: none; color: inherit;">Nakai Nakai</a></h1>
+            <div class="nav-links">
+                <a href="/nakai/views/public/artists.php">Artists</a>
+                <a href="/nakai/views/public/galleries.php">Galleries</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                <div class="user-menu">
+                    <a href="#" class="user-trigger">
+                        <i class="fas fa-user-circle"></i>
+                        Account
+                    </a>
+                    <div class="dropdown-content">
+                        <?php if ($_SESSION['role'] === 'artist'): ?>
+                        <a href="/nakai/views/artist/dashboard.php">Dashboard</a>
+                        <a href="/nakai/views/artist/portfolio.php">Portfolio</a>
+                        <?php elseif ($_SESSION['role'] === 'gallery'): ?>
+                        <a href="/nakai/views/gallery/dashboard.php">Dashboard</a>
+                        <a href="/nakai/views/gallery/spaces.php">Spaces</a>
+                        <?php endif; ?>
+                        <a href="/nakai/auth/logout.php">Logout</a>
+                    </div>
                 </div>
-                <div class="toggle-option inactive" onclick="toggleForm('gallery')">
-                    <h2>Gallery Registration</h2>
-                    <p>Register your gallery</p>
+                <?php else: ?>
+                <a href="/nakai/auth/login.php">Login</a>
+                <a href="/nakai/auth/register.php" class="active">Register</a>
+                <?php endif; ?>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="registration-container">
+                <?php if (!empty($error)): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
+                <?php if (!empty($success)): ?>
+                <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
+                <?php endif; ?>
+
+                <div class="toggle-header">
+                    <div class="toggle-option active" onclick="toggleForm('artist')">
+                        <h2>Artist Registration</h2>
+                        <p>Join our community as an artist</p>
+                    </div>
+                    <div class="toggle-option inactive" onclick="toggleForm('gallery')">
+                        <h2>Gallery Registration</h2>
+                        <p>Register your gallery</p>
+                    </div>
+                </div>
+
+                <!-- Artist Registration Form -->
+                <form class="registration-form artist-form" method="POST" action="../actions/auth/register.php">
+                    <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                    <input type="hidden" name="role" value="artist">
+
+                    <div class="form-group">
+                        <label for="artist-email">Email Address <span>*</span></label>
+                        <input type="email" id="artist-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="artist-password">Password <span>*</span></label>
+                        <input type="password" id="artist-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="artist-name">Full Name <span>*</span></label>
+                        <input type="text" id="artist-name" name="artist-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="artist-bio">Bio</label>
+                        <textarea id="artist-bio" name="artist-bio"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="artist-phone">Phone Number</label>
+                        <input type="tel" id="artist-phone" name="artist-phone">
+                    </div>
+                    <button type="submit" class="btn">Register as Artist</button>
+                </form>
+
+                <!-- Gallery Registration Form -->
+                <form class="registration-form gallery-form" method="POST" action="../actions/auth/register.php">
+                    <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                    <input type="hidden" name="role" value="gallery">
+
+                    <div class="form-group">
+                        <label for="gallery-email">Email Address <span>*</span></label>
+                        <input type="email" id="gallery-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-password">Password <span>*</span></label>
+                        <input type="password" id="gallery-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-name">Gallery Name <span>*</span></label>
+                        <input type="text" id="gallery-name" name="gallery-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-description">Description</label>
+                        <textarea id="gallery-description" name="gallery-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-address">Address</label>
+                        <textarea id="gallery-address" name="gallery-address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-phone">Phone Number</label>
+                        <input type="tel" id="gallery-phone" name="gallery-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-website">Website</label>
+                        <input type="url" id="gallery-website" name="gallery-website">
+                    </div>
+                    <button type="submit" class="btn">Register as Gallery</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="/nakai/index.php">
+                        <h2>Nakai Nakai</h2>
+                    </a>
+                </div>
+
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+
+                <div class="footer-credit">
+                    <p>© 2024 Nakai Nakai Art Gallery. All rights reserved.</p>
+                    <p>Developed by Ruvarashe Sadya</p>
                 </div>
             </div>
+        </footer>
 
-            <form class="registration-form artist-form active" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                <input type="hidden" name="role" value="artist">
-                
-                <?php if (!empty($error)): ?>
-                    <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
-                <?php endif; ?>
+    </body>
 
-                <div class="form-group">
-                    <label for="artist-email">Email Address <span>*</span></label>
-                    <input type="email" id="artist-email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="artist-password">Password <span>*</span></label>
-                    <input type="password" id="artist-password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="artist-name">Full Name <span>*</span></label>
-                    <input type="text" id="artist-name" name="artist-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="artist-bio">Bio</label>
-                    <textarea id="artist-bio" name="artist-bio"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="artist-phone">Phone Number</label>
-                    <input type="tel" id="artist-phone" name="artist-phone">
-                </div>
-                <button type="submit" class="btn">Register as Artist</button>
-            </form>
-
-            <form class="registration-form gallery-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                <input type="hidden" name="role" value="gallery">
-                
-                <?php if (!empty($error)): ?>
-                    <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
-                <?php endif; ?>
-                <div class="form-group">
-                    <label for="gallery-email">Email Address <span>*</span></label>
-                    <input type="email" id="gallery-email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="gallery-password">Password <span>*</span></label>
-                    <input type="password" id="gallery-password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="gallery-name">Gallery Name <span>*</span></label>
-                    <input type="text" id="gallery-name" name="gallery-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="gallery-description">Description</label>
-                    <textarea id="gallery-description" name="gallery-description"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="gallery-address">Address</label>
-                    <textarea id="gallery-address" name="gallery-address"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="gallery-phone">Phone Number</label>
-                    <input type="tel" id="gallery-phone" name="gallery-phone">
-                </div>
-                <div class="form-group">
-                    <label for="gallery-website">Website</label>
-                    <input type="url" id="gallery-website" name="gallery-website">
-                </div>
-                <button type="submit" class="btn">Register as Gallery</button>
-            </form>
-        </div>
-    </div>
-
-    <?php include '../includes/footer.php'; ?>
-
-    <script>
-        function toggleForm(type) {
-    const artistForm = document.querySelector('.artist-form');
-    const galleryForm = document.querySelector('.gallery-form');
-    const artistOption = document.querySelector('.toggle-option:first-child');
-    const galleryOption = document.querySelector('.toggle-option:last-child');
-
-    if (type === 'artist') {
-        artistForm.classList.add('active');
-        galleryForm.classList.remove('active');
-        artistOption.classList.add('active');
-        galleryOption.classList.remove('active');
-    } else {
-        galleryForm.classList.add('active');
-        artistForm.classList.remove('active');
-        galleryOption.classList.add('active');
-        artistOption.classList.remove('active');
-    }
-}
-
-    </script>
-</body>
 </html>

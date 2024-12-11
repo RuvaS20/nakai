@@ -1,5 +1,5 @@
 <?php
-// auth/logout.php
+
 session_start();
 
 // Clear all session variables

@@ -1,116 +1,119 @@
-/* register.css */
+/* Basic form layout */
 .registration-form {
-    display: none;
     max-width: 500px;
-    /* Reduced from 600px */
     margin: 0 auto;
     padding: 0 1rem;
-    /* Reduced from 1.5rem */
     width: 100%;
+    display: none;
 }
 
 .registration-form.active {
     display: block;
 }
 
-.registration-form .form-group {
-    margin-bottom: 0.75rem;
-    /* Adjusted spacing */
+/* Form groups and inputs */
+.form-group {
+    margin-bottom: 1rem;
 }
 
-.registration-form .form-group label {
+.form-group label {
     font-size: 0.9rem;
-    /* Smaller label text */
     margin-bottom: 0.2rem;
-    /* Reduced space between label and input */
+    display: block;
 }
 
-.registration-form .form-group input,
-.registration-form .form-group textarea {
+.form-group label span {
+    color: #d63031;
+    font-size: 0.8rem;
+}
+
+.form-group input,
+.form-group textarea {
     width: 100%;
-    padding: 0.4rem 0.5rem;
-    /* Smaller padding */
+    padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 0.9rem;
-    /* Smaller input text */
+    margin-top: 0.25rem;
 }
 
-.registration-form .form-group textarea {
+.form-group textarea {
     min-height: 80px;
-    /* Reduced textarea height */
     resize: vertical;
 }
 
-.registration-form .btn {
-    padding: 0.5rem 1rem;
-    /* Smaller button */
-    font-size: 0.9rem;
-    /* Smaller button text */
-}
-
+/* Toggle header styling */
 .toggle-header {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    /* Reduced gap */
     margin-bottom: 1rem;
     padding: 0.75rem;
-    /* Reduced padding */
     width: 100%;
-    max-width: 600px;
-    /* Reduced from 800px */
 }
 
 .toggle-option {
     cursor: pointer;
     padding: 0.75rem 1.5rem;
-    /* Smaller padding */
     text-align: center;
     transition: all 0.3s ease;
+    background-color: #F8F9FA;
+    color: #333;
+    border-bottom: 1px solid transparent;
+}
+
+.toggle-option:hover {
+    background-color: #F5F5FF;
+}
+
+.toggle-option.active {
+    background-color: #ffffff;
+    color: #000;
+    border-bottom: 2px solid #333;
+}
+
+.toggle-option.inactive {
+    background-color: #F8F9FA;
+    border-bottom: none;
 }
 
 .toggle-option h2 {
     margin: 0;
     font-size: 1.25rem;
-    /* Smaller heading */
 }
 
 .toggle-option p {
     margin: 0.25rem 0 0 0;
     font-size: 0.8rem;
-    /* Smaller description text */
 }
 
-.form-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    /* Reduced margin */
-}
-
-.registration-main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 1rem 0.5rem;
-    /* Reduced padding */
-    background-color: #f5f5ff;
-    min-height: calc(100vh - 140px);
-}
-
+/* Container styling */
 .registration-container {
     background-color: white;
     border-radius: 6px;
-    /* Slightly smaller radius */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     width: 100%;
     max-width: 600px;
-    /* Reduced from 800px */
     padding: 1rem;
-    /* Reduced padding */
     margin: 0.75rem auto;
-    /* Reduced margin */
+    display: block;
+}
+
+/* Button styling */
+.registration-form .btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registration-form .btn:hover {
+    background-color: #555;
 }
 
 /* Error and success messages */
@@ -135,10 +138,15 @@
     border: 1px solid #55efc4;
 }
 
-/* Form validation indicators */
-.form-group label span {
-    color: #d63031;
-    font-size: 0.8rem;
+/* Main content area */
+.registration-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 0.5rem;
+    background-color: #f5f5ff;
+    min-height: calc(100vh - 140px);
 }
 
 /* Responsive adjustments */
@@ -164,30 +172,13 @@
     .toggle-option p {
         font-size: 0.75rem;
     }
-}
 
+    .form-group label {
+        font-size: 0.85rem;
+    }
 
-
-
-/* Style for active and inactive toggle options */
-.toggle-option {
-    background-color: #F8F9FA;
-    /* Default color for inactive */
-    color: #333;
-   
-}
-
-.toggle-option:hover {
-    background-color: #F5F5FF;
-}
-
-.toggle-option.active {
-    background-color: #ffffff;
-    color: #000;
-    border-bottom: 0.75px solid #333;
-}
-
-/* Transition effect */
-.toggle-option {
-    transition: background-color 0.3s ease, color 0.3s ease;
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.85rem;
+    }
 }
