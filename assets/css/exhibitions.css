@@ -1,0 +1,272 @@
+/* Hero section styling */
+.exhibitions-header {
+    height: 30vh;
+    background: linear-gradient(135deg, #1a1a1a, #333333);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.exhibitions-header h1 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.exhibitions-header p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* Filter container styling */
+.filter-container {
+    padding: 2rem;
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+    position: relative;
+}
+
+.filter-buttons {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+}
+
+.filter-btn {
+    padding: 0.75rem 2rem;
+    border: 2px solid #333333;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active {
+    background: linear-gradient(to right, #1a1a1a, #333333);
+    color: white;
+    border: none;
+}
+
+/* Exhibitions grid */
+.exhibitions-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Exhibition cards */
+.exhibition-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.exhibition-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.exhibition-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.exhibition-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.exhibition-card:hover .exhibition-image img {
+    transform: scale(1.05);
+}
+
+.exhibition-content {
+    padding: 1.5rem;
+}
+
+/* Exhibition status badges */
+.exhibition-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.status-current {
+    background: linear-gradient(45deg, #1a1a1a, #333333);
+    color: white;
+}
+
+.status-upcoming {
+    background: linear-gradient(45deg, #F0F5FF, #E6EEFF);
+    color: #2B6CB0;
+}
+
+/* Exhibition details */
+.exhibition-title {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.exhibition-artist {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.exhibition-details {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.exhibition-details p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.exhibition-details i {
+    width: 20px;
+    margin-right: 0.5rem;
+    color: #6B46C1;
+}
+
+/* Decorative elements */
+.artistic-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(107, 70, 193, 0.1), rgba(43, 108, 176, 0.1));
+    mix-blend-mode: overlay;
+}
+
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+}
+
+.circle-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -50px;
+    right: -50px;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.5rem;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* No exhibitions message */
+.no-exhibitions {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .exhibitions-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .exhibitions-header p {
+        font-size: 1rem;
+    }
+
+    .exhibitions-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+    }
+
+    .filter-buttons {
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1.5rem;
+    }
+
+    .artistic-circle {
+        display: none;
+    }
+}
+
+
+.nav-logo {
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+}
+
+.nav-links {
+    font-size: 1rem;
+}
+
+.main-nav {
+    padding: 1.5rem 2rem;
+}

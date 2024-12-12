@@ -43,8 +43,8 @@ $featuredExhibitions = getFeaturedExhibitions(3);
             <nav class="main-nav">
                 <a href="index.php" class="nav-logo">Nakai Nakai</a>
                 <div class="nav-links">
-                    <a href="views/public/artists.php">Artists</a>
-                    <a href="views/public/galleries.php">Galleries</a>
+                    <a href="views/public/about.php">About</a>
+                    <a href="views/public/exhibitions.php">Exhibitions</a>
                     <a href="auth/login.php">Login</a>
                     <a href="auth/register.php">Register</a>
                 </div>
