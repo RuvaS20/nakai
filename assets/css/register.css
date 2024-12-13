@@ -1,184 +1,225 @@
-/* Basic form layout */
-.registration-form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 0 1rem;
+/* Registration page layout */
+.main-content {
+    min-height: calc(100vh - 140px);
+    background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+    padding: 4rem 2rem;
+}
+
+.registration-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     width: 100%;
+    max-width: 600px;
+    padding: 2.5rem;
+    margin: 0 auto;
+}
+
+/* Message styling */
+.error-message,
+.success-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.error-message {
+    background-color: #fff2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.success-message {
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+/* Toggle header styling */
+.toggle-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: #f8f8f8;
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+.toggle-option {
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.toggle-option.active {
+    background: #000;
+    color: #fff;
+}
+
+.toggle-option.inactive {
+    background: transparent;
+    color: #666;
+}
+
+.toggle-option h2 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.toggle-option p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Form styling */
+.registration-form {
     display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .registration-form.active {
     display: block;
 }
 
-/* Form groups and inputs */
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
-    font-size: 0.9rem;
-    margin-bottom: 0.2rem;
     display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
 }
 
 .form-group label span {
-    color: #d63031;
-    font-size: 0.8rem;
+    color: #dc2626;
+    margin-left: 0.25rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    margin-top: 0.25rem;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #fcfcfc;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #000;
+    outline: none;
+    background: #fff;
 }
 
 .form-group textarea {
-    min-height: 80px;
+    min-height: 120px;
     resize: vertical;
 }
 
-/* Toggle header styling */
-.toggle-header {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    width: 100%;
-}
-
-.toggle-option {
-    cursor: pointer;
-    padding: 0.75rem 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    background-color: #F8F9FA;
-    color: #333;
-    border-bottom: 1px solid transparent;
-}
-
-.toggle-option:hover {
-    background-color: #F5F5FF;
-}
-
-.toggle-option.active {
-    background-color: #ffffff;
-    color: #000;
-    border-bottom: 2px solid #333;
-}
-
-.toggle-option.inactive {
-    background-color: #F8F9FA;
-    border-bottom: none;
-}
-
-.toggle-option h2 {
-    margin: 0;
-    font-size: 1.25rem;
-}
-
-.toggle-option p {
-    margin: 0.25rem 0 0 0;
-    font-size: 0.8rem;
-}
-
-/* Container styling */
-.registration-container {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    width: 100%;
-    max-width: 600px;
-    padding: 1rem;
-    margin: 0.75rem auto;
-    display: block;
-}
-
 /* Button styling */
-.registration-form .btn {
+.btn {
     width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    background-color: #333;
-    color: white;
+    padding: 1rem;
+    background: #000;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.registration-form .btn:hover {
-    background-color: #555;
-}
-
-/* Error and success messages */
-.error-message,
-.success-message {
-    padding: 0.5rem;
-    margin-bottom: 0.75rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.error-message {
-    background-color: #ffe6e6;
-    color: #d63031;
-    border: 1px solid #fab1a0;
-}
-
-.success-message {
-    background-color: #e6ffe6;
-    color: #00b894;
-    border: 1px solid #55efc4;
-}
-
-/* Main content area */
-.registration-main-content {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 1rem 0.5rem;
-    background-color: #f5f5ff;
-    min-height: calc(100vh - 140px);
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 576px) {
+.btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+/* Optional fields styling */
+.optional-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+/* Form sections */
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section-title {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 2rem 1rem;
+    }
+
     .registration-container {
-        margin: 0.5rem;
-        padding: 0.75rem;
+        padding: 2rem 1.5rem;
     }
 
     .toggle-header {
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-
-    .toggle-option {
-        padding: 0.5rem 1rem;
+        grid-template-columns: 1fr;
     }
 
     .toggle-option h2 {
-        font-size: 1.1rem;
-    }
-
-    .toggle-option p {
-        font-size: 0.75rem;
+        font-size: 1.25rem;
     }
 
     .form-group label {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .form-group input,
     .form-group textarea {
-        font-size: 0.85rem;
+        padding: 0.875rem;
     }
+}
+
+/* Animation for form switching */
+.registration-form {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.registration-form.active {
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -1,6 +1,7 @@
+/* Keep existing hero section styles */
 .hero-section {
     height: 30vh;
-    background: linear-gradient(135deg, #1a1a1a, #333333);
+    background: black;
     position: relative;
     display: flex;
     align-items: center;
@@ -25,190 +26,229 @@
     opacity: 0.9;
 }
 
-.section {
-    padding: 6rem 2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.artists-section {
-    background: linear-gradient(45deg, #F5F0FF 80%, #F5F0FF);
-    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
-}
-
-.galleries-section {
-    background: linear-gradient(45deg, #F0F5FF 80%, #F0F5FF);
-    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-    margin-top: -5vh;
-    padding-top: 8rem;
-}
-
-.section-content {
+/* Container */
+.container {
     max-width: 1200px;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
+    padding: 0 2rem;
 }
 
-.section-header {
-    text-align: center;
-    margin-bottom: 4rem;
+/* Mission Section */
+.mission-section {
+    padding: 4rem 0;
+    background-color: #fff;
 }
 
-.section-title {
-    font-family: 'Faculty Glyphic', sans-serif;
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, #1a1a1a, #333333);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    display: inline-block;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 20%;
-    width: 60%;
-    height: 4px;
-    background: linear-gradient(to right, #1a1a1a, #333333);
-    border-radius: 2px;
-}
-
-.section-description {
-    font-size: 1.2rem;
-    color: #666;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-
-.cards-container {
+.mission-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-bottom: 3rem;
 }
 
-.card {
-    background: rgba(255, 255, 255, 0.9);
+.mission-item {
+    text-align: center;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.mission-item:hover {
+    transform: translateY(-10px);
+}
+
+.mission-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #000;
+}
+
+.mission-item h3 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.mission-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Featured Section */
+.featured-section {
+    padding: 4rem 0;
+    background-color: #f8f8f8;
+}
+
+.featured-section h2,
+.gallery-showcase h2 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.featured-item {
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.featured-item:hover {
+    transform: translateY(-5px);
+}
+
+.featured-content h3 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.featured-content p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Gallery Showcase */
+.gallery-showcase {
+    padding: 4rem 0;
+    background-color: #fff;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.gallery-item {
+    background: #f8f8f8;
+    padding: 2rem;
     transition: all 0.3s ease;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+.gallery-item:hover {
+    background: #000;
+    color: #fff;
 }
 
-.card h3 {
+.gallery-item:hover p {
+    color: #fff;
+}
+
+.gallery-content h3 {
     font-family: 'Faculty Glyphic', sans-serif;
-    font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: black;
+    font-size: 1.5rem;
 }
 
-.card p {
+.gallery-content p {
     color: #666;
     line-height: 1.6;
     margin-bottom: 1rem;
 }
 
-.card .website {
-    color: #6B46C1;
+.gallery-link {
+    color: #000;
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
-.card .website:hover {
-    color: #2B6CB0;
+.gallery-item:hover .gallery-link {
+    color: #fff;
 }
 
-.register-btn {
-    display: block;
-    width: fit-content;
-    margin: 2rem auto 0;
-    background: black;
-    padding: 1.2rem 3rem;
-    border-radius: 50px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: white;
+/* Join Section */
+.join-section {
+    padding: 6rem 0;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+}
+
+.join-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.join-content h2 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.join-content p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.join-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.join-btn {
+    padding: 1rem 2rem;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
     transition: all 0.3s ease;
+    min-width: 200px;
 }
 
-.register-btn:hover {
+.artist-btn {
+    background: #fff;
+    color: #000;
+}
+
+.gallery-btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.join-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
-.artistic-circle {
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(45deg, rgba(107, 70, 193, 0.1), rgba(43, 108, 176, 0.1));
-    mix-blend-mode: overlay;
-}
+/* Responsive Design */
+@media (max-width: 992px) {
 
-.circle-1 {
-    width: 400px;
-    height: 400px;
-    top: -100px;
-    left: -100px;
-}
-
-.circle-2 {
-    width: 300px;
-    height: 300px;
-    bottom: -50px;
-    right: -50px;
+    .mission-grid,
+    .featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
 
-    .hero-content p {
-        font-size: 1.1rem;
-    }
-
-    .section {
-        padding: 4rem 1rem;
-    }
-
-    .section-title {
-        font-size: 2.5rem;
-    }
-
-    .section-description {
-        font-size: 1rem;
-    }
-
-    .cards-container {
+    .mission-grid,
+    .featured-grid,
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 
-    .artistic-circle {
-        display: none;
+    .join-buttons {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .galleries-section {
-        margin-top: -3vh;
-        padding-top: 6rem;
+    .container {
+        padding: 0 1rem;
     }
 }
 
+/* Keep existing nav styles */
 .nav-logo {
     text-decoration: none;
     color: black;

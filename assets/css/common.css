@@ -33,10 +33,6 @@ label {
     font-weight: 400;
 }
 
-body {
-    background-color: #F5F5FF;
-}
-
 /* Navigation specific styles - won't be overridden */
 .main-nav {
     display: flex;
@@ -144,4 +140,22 @@ p {
         border-right: none;
         border-bottom: 1px solid #ccc;
     }
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+.nav-logo {
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+}
+
+.nav-links {
+    font-size: 1rem;
+}
+
+.main-nav {
+    padding: 1.5rem 2rem;
 }

@@ -100,7 +100,8 @@ $featuredExhibitions = getFeaturedExhibitions(3);
             </div>
 
             <div class="see-all-link">
-                <a href="views/public/exhibitions.php">See all exhibitions <i class="fas fa-arrow-right"></i></a>
+                <a href="views/public/exhibitions.php">See all exhibitions <i
+                        class="fas fa-arrow-right pulse-right"></i></a>
             </div>
         </section>
 

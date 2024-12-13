@@ -89,8 +89,8 @@ unset($_SESSION['register_success']);
         <nav class="main-nav">
             <h1><a href="/nakai/index.php" style="text-decoration: none; color: inherit;">Nakai Nakai</a></h1>
             <div class="nav-links">
-                <a href="/nakai/views/public/artists.php">Artists</a>
-                <a href="/nakai/views/public/galleries.php">Galleries</a>
+                <a href="../views/public/about.php">Artists</a>
+                <a href="../views/public/exhibitions.php">Exhibitions</a>
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="user-menu">
                     <a href="#" class="user-trigger">
