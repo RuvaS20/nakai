@@ -1,0 +1,453 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.gallery-nav {
+    background: white;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 2rem;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-logo:hover {
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.25rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.15rem;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #6b46c1;
+}
+
+.nav-links a .fa-user-circle {
+    font-size: 1.4rem;
+}
+
+.logout-link {
+    color: #dc2626 !important;
+}
+
+.logout-link:hover {
+    opacity: 0.8;
+}
+
+.logout-link .fa-arrow-right {
+    transition: transform 0.3s ease;
+}
+
+.logout-link:hover .fa-arrow-right {
+    transform: translateX(4px);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert.success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.alert.error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Requests Header */
+.requests-header {
+    margin-bottom: 2rem;
+}
+
+.requests-header h1 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #e5e5e5;
+    border-radius: 50px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    border-color: #6b46c1;
+    color: #6b46c1;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #6b46c1;
+    color: white;
+    border-color: #6b46c1;
+}
+
+/* No Requests Message */
+.no-requests {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 12px;
+    color: #666;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.no-requests i {
+    margin-bottom: 1rem;
+    color: #a0aec0;
+}
+
+/* Requests Grid */
+.requests-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Request Card */
+.request-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-5px);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.artist-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.artist-info img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.artist-info i {
+    font-size: 48px;
+    color: #a0aec0;
+}
+
+.artist-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+.artist-info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-pending .status-badge {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.status-approved .status-badge {
+    background: #DEF7EC;
+    color: #046C4E;
+}
+
+.status-rejected .status-badge {
+    background: #FDE8E8;
+    color: #9B1C1C;
+}
+
+/* Request Details */
+.request-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4A5568;
+}
+
+.detail-item i {
+    color: #6b46c1;
+}
+
+/* Request Description */
+.request-description {
+    color: #4A5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Action Buttons */
+.request-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn.approve {
+    background: #047857;
+    color: white;
+}
+
+.action-btn.reject {
+    background: #DC2626;
+    color: white;
+}
+
+.action-btn.cancel {
+    background: #991B1B;
+    color: white;
+}
+
+.action-btn.view {
+    background: #1F2937;
+    color: white;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1100;
+}
+
+.modal-content {
+    background: white;
+    margin: 2rem auto;
+    padding: 2rem;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.detail-content {
+    margin-top: 2rem;
+}
+
+.detail-section {
+    margin-bottom: 2rem;
+}
+
+.detail-section h3 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.detail-section p {
+    margin-bottom: 0.5rem;
+    color: #4A5568;
+}
+
+.detail-section .status-pending {
+    color: #92400E;
+}
+
+.detail-section .status-approved {
+    color: #046C4E;
+}
+
+.detail-section .status-rejected {
+    color: #9B1C1C;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gallery-nav {
+        padding: 1rem;
+    }
+
+    .nav-logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .request-details {
+        grid-template-columns: 1fr;
+    }
+
+    .request-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a span {
+        display: none;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .artist-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .request-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}

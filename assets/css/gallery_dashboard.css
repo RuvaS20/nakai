@@ -1,0 +1,368 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.gallery-nav {
+    background: white;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 2rem;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-logo:hover {
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.25rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.15rem;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #6b46c1;
+}
+
+.nav-links a .fa-user-circle {
+    font-size: 1.4rem;
+}
+
+.logout-link {
+    color: #dc2626 !important;
+    transition: all 0.3s ease;
+}
+
+.logout-link:hover {
+    opacity: 0.8;
+}
+
+.logout-link .fa-arrow-right {
+    font-size: 0.9em;
+    transition: transform 0.3s ease;
+}
+
+.logout-link:hover .fa-arrow-right {
+    transform: translateX(4px);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Stats Section */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: #6b46c1;
+    margin-bottom: 1rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Requests Section */
+.requests-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.requests-section h2 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.no-requests {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+.requests-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.request-card {
+    background: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-2px);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.request-header h3 {
+    font-size: 1.2rem;
+}
+
+.request-status {
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.status-pending {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.request-details {
+    margin-bottom: 1rem;
+}
+
+.request-details p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.request-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Calendar Section */
+.calendar-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-section h2 {
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.calendar-card {
+    background: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.calendar-card:hover {
+    transform: translateY(-5px);
+}
+
+.calendar-image {
+    width: 100%;
+    height: 200px;
+    background: #edf2f7;
+    overflow: hidden;
+}
+
+.calendar-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    font-size: 2rem;
+}
+
+.calendar-content {
+    padding: 1.5rem;
+}
+
+.calendar-status {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.status-current .calendar-status {
+    background: #C6F6D5;
+    color: #22543D;
+}
+
+.status-upcoming .calendar-status {
+    background: #E9D8FD;
+    color: #553C9A;
+}
+
+.calendar-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-content p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gallery-nav {
+        padding: 1rem;
+    }
+
+    .nav-logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a span {
+        display: none;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .requests-section,
+    .calendar-section {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
