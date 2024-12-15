@@ -36,6 +36,17 @@ $featuredExhibitions = getFeaturedExhibitions(3);
     </head>
 
     <body>
+        <div id="welcomeModal" class="welcome-modal">
+            <div class="welcome-content">
+                <h2>Welcome to Nakai Nakai</h2>
+                <p>Your bridge to Ghana's vibrant art scene - connecting independent artists with leading galleries.</p>
+                <div class="disclaimer">
+                    <p><small>Disclaimer: The images used on this site are sourced from the public domain for
+                            non-commercial, educational purposes only.</small></p>
+                </div>
+                <button class="understand-btn">I Understand</button>
+            </div>
+        </div>
         <div class="hero-section"
             <?php if ($heroExhibition): ?>style="background-image: url('<?php echo htmlspecialchars($heroExhibition['image_url']); ?>')"
             <?php endif; ?>>
@@ -167,6 +178,27 @@ $featuredExhibitions = getFeaturedExhibitions(3);
         </footer>
 
         <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user has seen the welcome message
+            if (!localStorage.getItem('welcomeSeen')) {
+                const modal = document.getElementById('welcomeModal');
+                modal.style.display = 'block';
+                // Small delay to ensure transition works
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+
+                // Handle button click
+                const btn = modal.querySelector('.understand-btn');
+                btn.addEventListener('click', function() {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 300);
+                    localStorage.setItem('welcomeSeen', 'true');
+                });
+            }
+        });
         document.addEventListener('DOMContentLoaded', function() {
             const nav = document.querySelector('.main-nav');
             const heroSection = document.querySelector('.hero-section');

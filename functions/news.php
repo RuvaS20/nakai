@@ -4,7 +4,7 @@
 function fetchArtNews() {
     $apiKey = '8d9fd1f9-c9d9-4228-87e0-8a92d0cdd5a2';
     $section = 'artanddesign';
-    $pageSize = 3;
+    $pageSize = 6;
     
     $url = "https://content.guardianapis.com/search?"
          . "section={$section}&"
