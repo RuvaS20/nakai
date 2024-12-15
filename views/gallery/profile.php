@@ -58,8 +58,9 @@ unset($_SESSION['profile_success'], $_SESSION['profile_error']);
             <a href="dashboard.php" class="nav-logo">Nakai Nakai</a>
             <div class="nav-links">
                 <a href="dashboard.php">Dashboard</a>
-                <a href="spaces.php">Spaces</a>
+                <a href="exhibitions.php">Artists</a>
                 <a href="requests.php">Requests</a>
+                <a href="spaces.php">Spaces</a>
                 <a href="profile.php" class="active" title="Profile">
                     <i class="fas fa-user-circle"></i>
                 </a>

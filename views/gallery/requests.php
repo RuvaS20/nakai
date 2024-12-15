@@ -40,8 +40,9 @@ unset($_SESSION['request_success'], $_SESSION['request_error']);
             <a href="dashboard.php" class="nav-logo">Nakai Nakai</a>
             <div class="nav-links">
                 <a href="dashboard.php">Dashboard</a>
-                <a href="spaces.php">Spaces</a>
+                <a href="exhibitions.php">Artists</a>
                 <a href="requests.php" class="active">Requests</a>
+                <a href="spaces.php">Spaces</a>
                 <a href="profile.php" title="Profile">
                     <i class="fas fa-user-circle"></i>
                 </a>

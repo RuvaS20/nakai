@@ -136,41 +136,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 requestsGrid.innerHTML = data.requests.map(request => `
-                    <div class="request-card status-${request.booking_status}">
-                        <div class="request-header">
-                            <div class="artist-info">
-                                ${request.artist_image 
-                                    ? `<img src="../../${request.artist_image}" alt="${request.artist_name}">`
-                                    : '<i class="fas fa-user-circle"></i>'
-                                }
-                                <div>
-                                    <h3>${request.title}</h3>
-                                    <p>by ${request.artist_name}</p>
-                                </div>
-                            </div>
-                            <span class="status-badge">
-                                ${request.booking_status.charAt(0).toUpperCase() + request.booking_status.slice(1)}
-                            </span>
-                        </div>
+    <div class="request-card status-${request.booking_status}">
+        <div class="request-header">
+            <div class="artist-info">
+                ${request.artist_image
+                        ? `<img src="../../${request.artist_image}" alt="${request.artist_name}" class="artist-profile-image">`
+                        : '<i class="fas fa-user-circle"></i>'
+                    }
+                <div>
+                    <h3>${request.title}</h3>
+                    <p>by ${request.artist_name}</p>
+                </div>
+            </div>
+            <span class="status-badge">
+                ${request.booking_status.charAt(0).toUpperCase() + request.booking_status.slice(1)}
+            </span>
+        </div>
 
-                        <div class="request-details">
-                            <div class="detail-item">
-                                <i class="fas fa-door-open"></i>
-                                <span>${request.space_name}</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-calendar"></i>
-                                <span>${request.formatted_dates.start} - ${request.formatted_dates.end}</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-users"></i>
-                                <span>Capacity: ${request.capacity}</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-dollar-sign"></i>
-                                <span>Rate: $${request.daily_rate}/day</span>
-                            </div>
-                        </div>
+        <div class="request-details">
+            <div class="detail-item">
+                <i class="fas fa-door-open"></i>
+                <span>${request.space_name}</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>${request.formatted_dates.start} - ${request.formatted_dates.end}</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-users"></i>
+                <span>Capacity: ${request.capacity}</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-dollar-sign"></i>
+                <span>Rate: $${request.daily_rate}/day</span>
+            </div>
+        </div>
 
                         <div class="request-description">
                             ${request.description || 'No description provided.'}

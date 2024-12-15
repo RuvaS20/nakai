@@ -67,24 +67,26 @@ try {
     $recent_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Get current and upcoming exhibitions
-    $stmt = $conn->prepare("
-        SELECT 
-            eb.booking_id,
-            eb.title,
-            eb.start_date,
-            eb.end_date,
-            a.name as artist_name,
-            es.name as space_name,
-            ei.image_url
-        FROM exhibition_bookings eb
-        JOIN exhibition_spaces es ON eb.space_id = es.space_id
-        JOIN artists a ON eb.artist_id = a.artist_id
-        LEFT JOIN exhibition_images ei ON eb.booking_id = ei.exhibition_id
-        WHERE es.gallery_id = ?
-        AND eb.booking_status = 'approved'
-        AND eb.end_date >= CURRENT_DATE
-        ORDER BY eb.start_date ASC
-    ");
+$stmt = $conn->prepare("
+    SELECT DISTINCT
+        eb.booking_id,
+        eb.title,
+        eb.start_date,
+        eb.end_date,
+        a.name as artist_name,
+        es.name as space_name,
+        (SELECT image_url 
+         FROM exhibition_images ei 
+         WHERE ei.exhibition_id = eb.booking_id 
+         LIMIT 1) as image_url
+    FROM exhibition_bookings eb
+    JOIN exhibition_spaces es ON eb.space_id = es.space_id
+    JOIN artists a ON eb.artist_id = a.artist_id
+    WHERE es.gallery_id = ?
+    AND eb.booking_status = 'approved'
+    AND eb.end_date >= CURRENT_DATE
+    ORDER BY eb.start_date ASC
+");
     $stmt->execute([$gallery_id]);
     $exhibitions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -118,8 +120,9 @@ try {
             <a href="dashboard.php" class="nav-logo">Nakai Nakai</a>
             <div class="nav-links">
                 <a href="dashboard.php" class="active">Dashboard</a>
-                <a href="spaces.php">Spaces</a>
+                <a href="exhibitions.php">Artists</a>
                 <a href="requests.php">Requests</a>
+                <a href="spaces.php">Spaces</a>
                 <a href="profile.php" title="Profile">
                     <i class="fas fa-user-circle"></i>
                 </a>

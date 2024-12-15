@@ -17,19 +17,12 @@ try {
     $stmt->execute([$_SESSION['user_id']]);
     $gallery = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if (!$gallery) {
-        throw new Exception("Gallery not found for user_id: " . $_SESSION['user_id']);
-    }
-
     // Get status filter if provided
     $status = isset($_GET['status']) ? $_GET['status'] : 'all';
     
-    // Debug info
-    error_log("Fetching requests for gallery_id: " . $gallery['gallery_id'] . " with status: " . $status);
-    
-    // Updated query with debug output
+    // Updated query with DISTINCT and subquery for image
     $query = "
-        SELECT 
+        SELECT DISTINCT
             eb.booking_id,
             eb.title,
             eb.description,
@@ -44,14 +37,16 @@ try {
             es.name as space_name,
             es.capacity,
             es.daily_rate,
-            ei.image_url as exhibition_image,
+            (SELECT image_url 
+             FROM exhibition_images ei 
+             WHERE ei.exhibition_id = eb.booking_id 
+             LIMIT 1) as exhibition_image,
             g.gallery_id
         FROM exhibition_bookings eb
         JOIN exhibition_spaces es ON eb.space_id = es.space_id
         JOIN artists a ON eb.artist_id = a.artist_id
         JOIN users u ON a.user_id = u.user_id
         JOIN galleries g ON es.gallery_id = g.gallery_id
-        LEFT JOIN exhibition_images ei ON eb.booking_id = ei.exhibition_id
         WHERE g.gallery_id = ?
     ";
     
@@ -65,19 +60,12 @@ try {
     
     $query .= " ORDER BY eb.created_at DESC";
     
-    // Debug info
-    error_log("Executing query: " . $query);
-    error_log("With parameters: " . print_r($params, true));
-    
     $stmt = $conn->prepare($query);
     $stmt->execute($params);
     
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Debug info
-    error_log("Found " . count($requests) . " requests");
-    
-    // Format dates and process data
+    // Format dates for each request
     foreach ($requests as &$request) {
         $request['formatted_dates'] = [
             'start' => date('M d, Y', strtotime($request['start_date'])),
