@@ -204,3 +204,66 @@
 .login-footer p a{
     color: #007bff;
 }
+.geometric-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Shapes for login/register pages */
+.circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    top: 15%;
+    right: 10%;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 100px solid #FFE66D;
+    bottom: 15%;
+    left: 15%;
+}
+
+.rectangle {
+    width: 180px;
+    height: 80px;
+    background: #6C5CE7;
+    top: 40%;
+    right: 15%;
+    transform: rotate(-15deg);
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background: #4ECDC4;
+    bottom: 20%;
+    right: 20%;
+    transform: rotate(45deg);
+}
+
+.circle-small {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #FF9F43;
+    top: 25%;
+    left: 12%;
+}

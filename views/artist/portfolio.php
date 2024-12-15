@@ -158,10 +158,11 @@ try {
                                 alt="<?php echo htmlspecialchars($artwork['title']); ?>" loading="lazy">
 
                             <div class="artwork-overlay">
-                                <button class="edit-btn" onclick="openEditModal(<?php echo $artwork['artwork_id']; ?>)">
+                                <button class="edit-btn" type="button"
+                                    onclick="openEditModal(<?php echo $artwork['artwork_id']; ?>)">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="delete-btn"
+                                <button class="delete-btn" type="button"
                                     onclick="confirmDelete(<?php echo $artwork['artwork_id']; ?>)">
                                     <i class="fas fa-trash"></i>
                                 </button>

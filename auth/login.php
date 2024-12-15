@@ -59,6 +59,11 @@ if (isset($_GET['registered']) && $_GET['registered'] == 1) {
         </nav>
 
         <div class="login-wrapper">
+            <div class="geometric-shapes">
+                <div class="shape circle"></div>
+                <div class="shape triangle"></div>
+                <div class="shape rectangle"></div>
+            </div>
             <div class="login-container">
                 <div class="login-header">
                     <div class="brand-icon">

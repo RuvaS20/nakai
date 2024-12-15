@@ -119,7 +119,6 @@ try {
             <div class="nav-links">
                 <a href="dashboard.php" class="active">Dashboard</a>
                 <a href="spaces.php">Spaces</a>
-                <a href="exhibitions.php">Exhibitions</a>
                 <a href="requests.php">Requests</a>
                 <a href="profile.php" title="Profile">
                     <i class="fas fa-user-circle"></i>

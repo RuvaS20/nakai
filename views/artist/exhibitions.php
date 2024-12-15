@@ -21,16 +21,17 @@ try {
     // Fetch exhibitions
 $stmt = $conn->prepare("
     SELECT eb.*, 
-           es.name as space_name,
-           g.name as gallery_name,
-           ei.image_url
-    FROM exhibition_bookings eb
-    JOIN exhibition_spaces es ON eb.space_id = es.space_id
-    JOIN galleries g ON es.gallery_id = g.gallery_id
-    LEFT JOIN exhibition_images ei ON eb.booking_id = ei.exhibition_id
-    WHERE eb.artist_id = ? 
-    AND eb.booking_status != 'cancelled'  -- Add this line to exclude cancelled bookings
-    ORDER BY eb.start_date DESC
+       es.name as space_name,
+       g.name as gallery_name,
+       ei.image_url
+FROM exhibition_bookings eb
+JOIN exhibition_spaces es ON eb.space_id = es.space_id
+JOIN galleries g ON es.gallery_id = g.gallery_id
+LEFT JOIN exhibition_images ei ON eb.booking_id = ei.exhibition_id 
+    AND ei.is_hero = 1  -- Only get the hero image
+WHERE eb.artist_id = ? 
+AND eb.booking_status != 'cancelled'
+ORDER BY eb.start_date DESC
 ");
 $stmt->execute([$artist_id]);
 $exhibitions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -203,6 +204,8 @@ $gallery_listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <h2>Edit Exhibition Details</h2>
                     <form id="editForm">
                         <input type="hidden" id="edit_booking_id" name="booking_id">
+
+                        <!-- Existing fields -->
                         <div class="form-group">
                             <label for="edit_title">Exhibition Title</label>
                             <input type="text" id="edit_title" name="title" required>
@@ -218,6 +221,19 @@ $gallery_listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <label for="edit_description">Description</label>
                             <textarea id="edit_description" name="description" required></textarea>
                         </div>
+
+                        <!-- New image upload section -->
+                        <div class="form-group">
+                            <label for="exhibition_image">Add Exhibition Image</label>
+                            <div class="file-upload">
+                                <input type="file" id="exhibition_image" name="image" accept="image/*">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="is_hero" name="is_hero">
+                                <label for="is_hero">Set as hero image</label>
+                            </div>
+                        </div>
+
                         <button type="submit" class="submit-btn">Update Details</button>
                     </form>
                 </div>
@@ -404,6 +420,7 @@ $gallery_listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 e.preventDefault();
                 const formData = new FormData(this);
 
+                // First update the booking details
                 fetch('../../actions/artist/update_booking.php', {
                         method: 'POST',
                         body: formData
@@ -411,16 +428,41 @@ $gallery_listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert('Booking updated successfully!');
+                            // Check if there's an image to upload
+                            const imageFile = document.getElementById('exhibition_image').files[0];
+                            if (imageFile) {
+                                // Create new FormData for image upload
+                                const imageData = new FormData();
+                                imageData.append('image', imageFile);
+                                imageData.append('exhibition_id', formData.get('booking_id'));
+                                imageData.append('is_hero', document.getElementById('is_hero')
+                                    .checked);
+
+                                // Upload the image
+                                return fetch('../../actions/artist/add_exhibition_image.php', {
+                                    method: 'POST',
+                                    body: imageData
+                                }).then(response => response.json());
+                            }
+                            return {
+                                success: true
+                            };
+                        } else {
+                            throw new Error(data.message);
+                        }
+                    })
+                    .then(response => {
+                        if (response.success) {
+                            alert('Exhibition updated successfully!');
                             modal.style.display = 'none';
                             location.reload();
                         } else {
-                            alert('Error: ' + data.message);
+                            throw new Error(response.message || 'Error updating exhibition');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Error updating booking. Please try again.');
+                        alert(error.message || 'Error updating exhibition. Please try again.');
                     });
             });
 
@@ -440,6 +482,7 @@ $gallery_listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
         function openEditModal(bookingId) {
             const modal = document.getElementById('editModal');
 
+            // Fetch booking details
             fetch(`../../actions/artist/get_booking.php?id=${bookingId}`)
                 .then(response => response.json())
                 .then(booking => {

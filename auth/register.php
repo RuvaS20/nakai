@@ -116,6 +116,13 @@ unset($_SESSION['register_success']);
         </nav>
 
         <div class="main-content">
+            <div class="geometric-shapes">
+                <div class="shape circle"></div>
+                <div class="shape square"></div>
+                <div class="shape triangle"></div>
+                <div class="shape rectangle"></div>
+                <div class="shape circle-small"></div>
+            </div>
             <div class="registration-container">
                 <?php if (!empty($error)): ?>
                 <div class="error-message"><?php echo htmlspecialchars($error); ?></div>

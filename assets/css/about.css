@@ -262,3 +262,101 @@
 .main-nav {
     padding: 1.5rem 2rem;
 }
+
+/* First ensure sections have relative positioning */
+.mission-section,
+.featured-section,
+.gallery-showcase {
+    position: relative;
+}
+
+/* Container for shapes */
+.geometric-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Base shape styles */
+.shape {
+    position: absolute;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Adjust shape positions */
+.mission-section .circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    top: 20%;
+    right: 10%;
+}
+
+/* Adjust shape positions */
+.mission-section .circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    top: 20%;
+    /* Moved down within mission section */
+    right: 10%;
+}
+
+.mission-section .square {
+    width: 100px;
+    height: 100px;
+    background: #4ECDC4;
+    bottom: 15%;
+    /* Position from bottom of mission section */
+    left: 5%;
+    transform: rotate(45deg);
+}
+
+.featured-section .triangle {
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 100px solid #FFE66D;
+    top: 30%;
+    /* Moved down in featured section */
+    right: 15%;
+}
+
+.featured-section .rectangle {
+    width: 180px;
+    height: 80px;
+    background: #6C5CE7;
+    bottom: 20%;
+    /* Position from bottom of featured section */
+    left: 10%;
+    transform: rotate(-15deg);
+}
+
+.gallery-showcase .circle-small {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #FF9F43;
+    top: 40%;
+    /* Centered vertically in gallery section */
+    left: 8%;
+}
+
+.gallery-showcase .square-rotated {
+    width: 120px;
+    height: 120px;
+    background: #00B894;
+    bottom: 25%;
+    /* Position from bottom of gallery section */
+    right: 12%;
+    transform: rotate(30deg);
+}

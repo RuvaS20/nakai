@@ -65,7 +65,6 @@ unset($_SESSION['space_success'], $_SESSION['space_error']);
             <div class="nav-links">
                 <a href="dashboard.php">Dashboard</a>
                 <a href="spaces.php" class="active">Spaces</a>
-                <a href="exhibitions.php">Exhibitions</a>
                 <a href="requests.php">Requests</a>
                 <a href="profile.php" title="Profile">
                     <i class="fas fa-user-circle"></i>

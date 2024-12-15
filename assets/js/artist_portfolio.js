@@ -84,23 +84,36 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
 const editModal = document.getElementById('editModal');
 const closeEditModal = editModal.querySelector('.close');
 
+// Function to open edit modal and fetch artwork details
 function openEditModal(artworkId) {
-    // Fetch artwork details
     fetch(`../../actions/artist/get_artwork.php?id=${artworkId}`)
         .then(response => response.json())
-        .then(artwork => {
-            // Populate form fields
-            document.getElementById('edit_artwork_id').value = artwork.artwork_id;
-            document.getElementById('edit_title').value = artwork.title;
-            document.getElementById('edit_description').value = artwork.description;
-            document.getElementById('edit_exhibition').value = artwork.exhibition_id || '';
+        .then(data => {
+            if (data.success) {
+                const artwork = data.artwork;
 
-            // Show modal
-            editModal.style.display = 'block';
+                // Populate the form fields with existing artwork data
+                document.getElementById('edit_artwork_id').value = artwork.artwork_id;
+                document.getElementById('edit_title').value = artwork.title;
+                document.getElementById('edit_description').value = artwork.description;
+
+                // Set exhibition dropdown value
+                const exhibitionSelect = document.getElementById('edit_exhibition');
+                if (artwork.exhibition_id) {
+                    exhibitionSelect.value = artwork.exhibition_id;
+                } else {
+                    exhibitionSelect.value = ''; // For general portfolio
+                }
+
+                // Show modal
+                document.getElementById('editModal').style.display = 'block';
+            } else {
+                throw new Error(data.message);
+            }
         })
         .catch(error => {
-            showNotification('Error loading artwork details.', 'error');
             console.error('Error:', error);
+            showNotification('Error loading artwork details', 'error');
         });
 }
 

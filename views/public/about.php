@@ -67,6 +67,10 @@ try {
 
         <!-- Mission Section -->
         <section class="mission-section">
+            <div class="geometric-shapes">
+                <div class="shape circle"></div>
+                <div class="shape square"></div>
+            </div>
             <div class="container">
                 <div class="mission-grid">
                     <div class="mission-item">
@@ -97,6 +101,10 @@ try {
 
         <!-- Featured Artists Section -->
         <section class="featured-section">
+            <div class="geometric-shapes">
+                <div class="shape triangle"></div>
+                <div class="shape rectangle"></div>
+            </div>
             <div class="container">
                 <h2>Featured Artists</h2>
                 <div class="featured-grid">
@@ -115,6 +123,10 @@ try {
 
         <!-- Gallery Showcase -->
         <section class="gallery-showcase">
+            <div class="geometric-shapes">
+                <div class="shape circle-small"></div>
+                <div class="shape square-rotated"></div>
+            </div>
             <div class="container">
                 <h2>Our Partner Galleries</h2>
                 <div class="gallery-grid">
